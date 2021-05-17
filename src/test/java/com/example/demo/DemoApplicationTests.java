@@ -25,10 +25,17 @@ class DemoApplicationTests {
 	}
 
 	@Test
-	@DisplayName("insert 확인")
-	void a() {
+	@DisplayName("쿼리 안에 직접 데이터를 적어서 insert 확인")
+	void insert() {
 		String query = "INSERT INTO user Values(null, 'kyu', 'kim')";
 		int updated = this.jdbcTemplate.update(query);
 		assertThat(updated).isEqualTo(1);
+	}
+
+	@Test
+	@DisplayName("쿼리에 데이터를 주입하고 insert 확인")
+	void insertWithPreparedStatement() {
+		String query = "INSERT INTO user Values(?, ?, ?)";
+		this.jdbcTemplate.update(query, null, "kyu", "kim");
 	}
 }
