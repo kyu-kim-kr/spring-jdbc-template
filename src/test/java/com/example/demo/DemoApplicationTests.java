@@ -18,6 +18,9 @@ class DemoApplicationTests {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@Autowired
+	private UserDao userDao;
+
 	@Test
 	@DisplayName("연결 확인")
 	void contextLoads() {
@@ -38,5 +41,12 @@ class DemoApplicationTests {
 		String query = "INSERT INTO user Values(?, ?, ?)";
 		int updated = this.jdbcTemplate.update(query, null, "kyu", "kim");
 		assertThat(updated).isEqualTo(1);
+	}
+
+	@Test
+	@DisplayName("UserMapper 작동하는지 확인")
+	void userMapper() {
+		User user = userDao.findById(1L);
+		assertThat(user).isNotNull();
 	}
 }
