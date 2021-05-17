@@ -36,6 +36,7 @@ class DemoApplicationTests {
 	@DisplayName("쿼리에 데이터를 주입하고 insert 확인")
 	void insertWithPreparedStatement() {
 		String query = "INSERT INTO user Values(?, ?, ?)";
-		this.jdbcTemplate.update(query, null, "kyu", "kim");
+		int updated = this.jdbcTemplate.update(query, null, "kyu", "kim");
+		assertThat(updated).isEqualTo(1);
 	}
 }
