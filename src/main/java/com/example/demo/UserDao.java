@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -19,6 +20,11 @@ public class UserDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public List<User> findAll() {
+        String query = "select * from user";
+        List<User> users = this.jdbcTemplate.query(query, new UserMapper());
+        return users;
+    }
     public User findById(Long id) {
         String sql = "SELECT * FROM user WHERE id = ?";
 
