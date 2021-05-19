@@ -13,4 +13,14 @@ public class Github {
    public String getAccess_token() {
       return access_token;
    }
+
+   @Override
+   public String toString() {
+      return "Github{" +
+              "client_id='" + client_id + '\'' +
+              ", client_secret='" + client_secret + '\'' +
+              ", redirect_uri='" + redirect_uri + '\'' +
+              ", access_token='" + access_token + '\'' +
+              '}';
+   }
 }
