@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.google.gson.Gson;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +25,16 @@ public class UserController {
     }
 
     @GetMapping("/callback")
-    public Object login(@RequestParam String code) {
+    public String login(@RequestParam String code) {
         Github github = new Github();
 
         String url = github.getUrlForAccesToken(code);
         Object object = restTemplate.getForObject(url, Object.class);
-        return object;
+        String jsonInString = new Gson().toJson(object);
+        JSONObject jsonObject = new JSONObject(jsonInString);
+
+        String accessToken = jsonObject.getString("access_token");
+
+        return "액세스토큰: "+ accessToken;
     }
 }
