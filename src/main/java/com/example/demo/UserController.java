@@ -25,16 +25,13 @@ public class UserController {
     }
 
     @GetMapping("/callback")
-    public String login(@RequestParam String code) {
+    public Github login(@RequestParam String code) {
         Github github = new Github();
 
         String url = github.getUrlForAccesToken(code);
-        Object object = restTemplate.getForObject(url, Object.class);
-        String jsonInString = new Gson().toJson(object);
-        JSONObject jsonObject = new JSONObject(jsonInString);
+        Github github2 = restTemplate.getForObject(url, Github.class);
 
-        String accessToken = jsonObject.getString("access_token");
+        return github2;
 
-        return "액세스토큰: "+ accessToken;
     }
 }
